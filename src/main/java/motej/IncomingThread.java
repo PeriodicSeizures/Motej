@@ -254,6 +254,9 @@ class IncomingThread extends Thread {
 	public void run() {
 		while (active) {
 			try {
+				// http://www.bluecove.org/bluecove/apidocs/javax/bluetooth/L2CAPConnection.html#receive(byte[])
+				// L2CapConnection.receive() will read a variable amount of data, not the size of the array (array size independent)
+				// lack of space on the array, however, will result in extra data being lost/discarded
 				byte[] buf = new byte[23];
 				incoming.receive(buf);
 				
